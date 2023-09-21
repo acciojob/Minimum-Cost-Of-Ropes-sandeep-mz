@@ -28,6 +28,7 @@ function calculateMinCost() {
     totalCost += cost;
 
     // Insert the newly formed rope back into the heap
+	  
     minHeap.insert(cost);
   }
 
