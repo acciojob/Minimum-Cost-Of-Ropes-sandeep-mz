@@ -1,37 +1,35 @@
-function calculateMinCost() {
-  // Get the input element
-  let inputElement = document.getElementById("input");
+function minCostToConnectRopes(ropes) {
+  // Sort the array in ascending order
+  ropes.sort((a, b) => a - b);
 
-  // Get the result element
-  let resultElement = document.getElementById("result");
-
-  // Get the input value as a comma-separated string
-  let input = inputElement.value;
-
-  // Parse the input string to extract rope lengths as an array of integers
-  let ropeLengths = input.split(",").map(Number);
-
-  // Initialize a variable to store the total cost
   let totalCost = 0;
 
-  // Convert the ropeLengths array into a Priority Queue (Min Heap)
-  let minHeap = new MinHeap(ropeLengths);
+  while (ropes.length > 1) {
+    // Take the two shortest ropes
+    const shortest1 = ropes.shift();
+    const shortest2 = ropes.shift();
 
-  // Continue until there is more than one rope left
-  while (minHeap.size() > 1) {
-    // Remove the two smallest ropes from the heap
-    let rope1 = minHeap.extractMin();
-    let rope2 = minHeap.extractMin();
+    // Combine them and add the cost to the total
+    const combined = shortest1 + shortest2;
+    totalCost += combined;
 
-    // Calculate the cost of connecting the two ropes and add it to totalCost
-    let cost = rope1 + rope2;
-    totalCost += cost;
-
-    // Insert the newly formed rope back into the heap
-	  
-    minHeap.insert(cost);
+    // Insert the combined rope back into the sorted array
+    insertSorted(ropes, combined);
   }
 
-  // Display the result in the result element
-  resultElement.textContent = `Minimum Cost: ${totalCost}`;
+  return totalCost;
 }
+
+// Helper function to insert an element into a sorted array
+function insertSorted(arr, element) {
+  let i = 0;
+  while (i < arr.length && arr[i] < element) {
+    i++;
+  }
+  arr.splice(i, 0, element);
+}
+
+// // Example usage:
+// const ropes = [4, 2, 7, 6, 9];
+// const minCost = minCostToConnectRopes(ropes);
+// console.log(minCost); // Output: 62
