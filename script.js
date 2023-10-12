@@ -28,8 +28,3 @@ function insertSorted(arr, element) {
   }
   arr.splice(i, 0, element);
 }
-
-// // Example usage:
-// const ropes = [4, 2, 7, 6, 9];
-// const minCost = minCostToConnectRopes(ropes);
-// console.log(minCost); // Output: 62
